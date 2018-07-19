@@ -1,11 +1,17 @@
 'use strict'
 
 const Web3 = require('web3')
+const config = require('config')
 
-// const chain = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/"));
-// const chain = new Web3(new Web3.providers.WebsocketProvider("wss://mainnet.infura.io/ws"));
-const chain = new Web3(new Web3.providers.WebsocketProvider("wss://testnet.tomochain.com/ws"));
-// const chain = new Web3(Web3.givenProvider || 'wss://testnet.tomochain.com/ws')
-// const chain = new WebsocketProvider('wss://mainnet.infura.io/ws')
+ /*
+    Mainnet provider
+        - ws:   wss://mainnet.infura.io/ws
+        - http: https://mainnet.infura.io
+    Tomochain testnet
+        - ws:   wss://testnet.tomochain.com/ws
+        - http: https://testnet.tomochain.com
+
+ */
+const chain = new Web3(new Web3.providers.WebsocketProvider(config.get('provider.ws')))
 
 module.exports = chain

@@ -1,6 +1,7 @@
 'use strict'
 
 const chain = require('./chain')
+const config = require('config')
 
 const ABI = [
     {
@@ -392,8 +393,12 @@ const ABI = [
     }
 ]
 
-// const ADDRESS = '0x8b353021189375591723e7384262f45709a3c3dc'
-const ADDRESS = '0x76562af804a46ad4c441aca5693583b69b1c387d'
+/*
+   Mainnet address:             0x8b353021189375591723e7384262f45709a3c3dc
+   Tomochain testnet address:   0x76562af804a46ad4c441aca5693583b69b1c387d
+*/
+
+const ADDRESS = config.get('tomo_address')
 
 const TomoCoin = new chain.eth.Contract(ABI, ADDRESS)
 
