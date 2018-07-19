@@ -1,7 +1,6 @@
 'use strict'
 
 const chain = require('./chain')
-const Web3 = require('web3')
 
 const ABI = [
     {
@@ -396,10 +395,7 @@ const ABI = [
 // const ADDRESS = '0x8b353021189375591723e7384262f45709a3c3dc'
 const ADDRESS = '0x76562af804a46ad4c441aca5693583b69b1c387d'
 
+const TomoCoin = new chain.eth.Contract(ABI, ADDRESS)
 
-const TomoCoin = web3.eth.Contract(ABI, ADDRESS)
+module.exports = TomoCoin
 
-module.exports = {
-    chain,
-    TomoCoin
-}
