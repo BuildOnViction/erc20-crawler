@@ -1,0 +1,11 @@
+{
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "password": null,
+    "prefix": "TomoTokenHolder"
+  },
+  "db": {
+    "uri": "mongodb://localhost:27017/tomo-holder"
+  }
+}

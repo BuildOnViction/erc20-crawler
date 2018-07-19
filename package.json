@@ -1,0 +1,19 @@
+{
+  "name": "tomo-token-holder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "kue": "^0.11.6",
+    "config": "^1.30.0",
+    "mongoose": "^5.2.4",
+    "web3": "^1.0.0-beta.34"
+  }
+}
