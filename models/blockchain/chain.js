@@ -12,6 +12,8 @@ const config = require('config')
         - http: https://testnet.tomochain.com
 
  */
-const chain = new Web3(new Web3.providers.WebsocketProvider(config.get('provider.ws')))
+
+const provider = new Web3.providers.WebsocketProvider(config.get('provider.ws'))
+const chain = new Web3(provider)
 
 module.exports = chain
