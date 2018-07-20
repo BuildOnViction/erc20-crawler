@@ -6,8 +6,7 @@ const Schema = mongoose.Schema
 const Transaction = new Schema({
     hash: {
         type: String,
-        index: true,
-        unique: true
+        index: true
     },
     block: {
         type: Number,
@@ -23,10 +22,7 @@ const Transaction = new Schema({
     },
     tokenAmount: {
         type: Number
-    },
-    isProcess: {
-        type: Boolean
     }
-}, { timestamps: true })
+}, { timestamps: false })
 
 module.exports = mongoose.model('Transaction', Transaction)

@@ -3,20 +3,27 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const Wallet = new Schema({
-    address: {
+const Block = new Schema({
+    hash: {
         type: String,
         index: true,
         unique: true
     },
-    balance: {
+    blockNumber: {
         type: Number,
-        index: true
+        index: true,
+        unique: true
     },
     transactionCount: {
         type: Number,
         index: true
+    },
+    parentHash: {
+        type: String
+    },
+    timestamp: {
+        type: Number
     }
 }, { timestamps: false })
 
-module.exports = mongoose.model('Wallet', Wallet)
+module.exports = mongoose.model('Block', Block)
