@@ -9,8 +9,8 @@
     "uri": "mongodb://localhost:27017/tomo-holder"
   },
   "provider": {
-    "ws": "wss://testnet.tomochain.com/ws",
+    "ws": "wss://mainnet.infura.io/ws",
     "http": "https://testnet.tomochain.com"
   },
-  "tomo_address": "0x76562af804a46ad4c441aca5693583b69b1c387d"
+  "tomo_address": "0x8b353021189375591723e7384262f45709a3c3dc"
 }

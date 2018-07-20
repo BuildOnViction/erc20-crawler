@@ -7,7 +7,7 @@ consumer.name = 'addAmountToWallet'
 consumer.task = async function(job, done) {
     let toWallet = job.data.toWallet
     let tokenAmount = job.data.tokenAmount
-    console.info('addAmountToWallet')
+    console.log('   - add ', tokenAmount, 'TOMO to wallet: ', toWallet)
     let wallet = await db.Wallet.findOneAndUpdate({address: toWallet}, {address: toWallet}, { upsert: true, new: true })
     if (wallet.balance) {
         wallet.balance += tokenAmount

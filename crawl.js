@@ -2,41 +2,36 @@
 
 const db = require('./models/mongodb')
 const q = require('./queues')
+const web3 = require('./models/blockchain/chain')
 
-const tomocoin = require('./models/blockchain/tomocoin')
+let sleep = (time) => new Promise((resolve) => setTimeout(resolve, time))
 
-tomocoin.getPastEvents('Transfer', {
-    filter: {},
-    fromBlock: 0,
-}, function (error, events) {
-    if (!error){
-        for (let i=0; i < events.length; i++) {
-            let event = events[i]
-            if (event.event === 'Transfer') {
-                let blockNumber = event.blockNumber
-                let transactionHash = event.transactionHash
-                let fromWallet = event.returnValues.from
-                let toWallet = event.returnValues.to
-                let tokenAmount = parseFloat(event.returnValues.value) / 10 ** 18
+async function process() {
+    for (let i = 5168958; i < 5995800  ; i++) {
+        if (i !== 5168958 && i !== 5169011 && i !== 5169173 && i < 5175169) {
+            continue
+        }
+        if (i % 10 === 0) {
+            console.log('Sleep 10 seconds')
+            await sleep(10000)
+        }
 
-                console.log(blockNumber, transactionHash, fromWallet, toWallet, tokenAmount)
-                console.log('--------------------')
+        let block = await web3.eth.getBlock(i);
+        await new db.Block({
+            hash: block.hash,
+            blockNumber: block.number,
+            transactionCount: block.transactions.length,
+            parentHash: block.parentHash,
+            timestamp: block.timestamp
+        }).save()
 
-
-                let tran = new db.Transaction({
-                    hash: transactionHash,
-                    block: blockNumber,
-                    fromWallet: fromWallet,
-                    toWallet: toWallet,
-                    tokenAmount: tokenAmount,
-                    isProcess: false
-                })
-                tran.save()
-
-                q.create('newTransaction', {fromWallet: fromWallet, toWallet: toWallet, tokenAmount: tokenAmount})
-                    .priority('high').removeOnComplete(true).save()
-
-            }
+        console.log("Process block number: " + i);
+        let listTransactions = await block.transactions
+        if (listTransactions != null && block != null) {
+            await q.create('newTransaction', {transactions: listTransactions.toString(), blockNumber: block.number})
+                .priority('normal').removeOnComplete(true).save()
         }
     }
-})
+}
+
+process()
