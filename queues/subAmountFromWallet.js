@@ -7,7 +7,7 @@ consumer.name = 'subAmountFromWallet'
 consumer.task = async function(job, done) {
     let fromWallet = job.data.fromWallet
     let tokenAmount = job.data.tokenAmount
-    console.info('subAmountFromWallet')
+    console.log('   - sub ', tokenAmount, 'TOMO from wallet: ', fromWallet)
     let wallet = await db.Wallet.findOneAndUpdate({address: fromWallet}, {address: fromWallet}, { upsert: true, new: true })
     if (wallet.balance) {
         wallet.balance -= tokenAmount
