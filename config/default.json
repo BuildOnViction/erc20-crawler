@@ -12,5 +12,6 @@
     "ws": "wss://mainnet.infura.io/ws",
     "http": "https://testnet.tomochain.com"
   },
-  "tomo_address": "0x8b353021189375591723e7384262f45709a3c3dc"
+  "tomoAddress": "0x8b353021189375591723e7384262f45709a3c3dc",
+  "processNumber": 6
 }

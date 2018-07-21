@@ -24,7 +24,7 @@ consumer.task = async function(job, done) {
 
         for (let i = 0; i < logs.length; i++) {
             let log = logs[i]
-            if (log.address.toLowerCase() === config.get('tomo_address')){
+            if (log.address.toLowerCase() === config.get('tomoAddress')){
                 // TODO: hashcode because this is for ERC20 transfer function
                 if (log.topics[0].toLowerCase() === '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') {
                     let fromWallet = log.topics[1].replace('0x000000000000000000000000', '0x')
