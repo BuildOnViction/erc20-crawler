@@ -23,6 +23,9 @@ const Block = new Schema({
     },
     timestamp: {
         type: Number
+    },
+    isProcess: {
+        type: Boolean
     }
 }, { timestamps: false })
 
