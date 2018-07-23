@@ -32,7 +32,12 @@ consumer.task = async function(job, done) {
                     let tokenAmount = web3.utils.hexToNumberString(log.data) / 10 ** 18
                     console.log('  - Found Transfer', tokenAmount, ' TOMO from: ', fromWallet, ' to: ', toWallet)
 
-                    // Make new transaction
+                    let tran = await db.Transaction.findOne({hash: transaction.transactionHash, fromAccount: fromWallet})
+                    if (tran && tran.isProcess) {
+                        continue
+                    }
+
+                    // Update or make new transaction
                     await db.Transaction.findOneAndUpdate(
                         {hash: transaction.transactionHash, fromAccount: fromWallet, toAccount: toWallet},
                         {
@@ -40,7 +45,8 @@ consumer.task = async function(job, done) {
                             block: transaction.blockNumber,
                             fromAccount: fromWallet,
                             toAccount: toWallet,
-                            tokenAmount: tokenAmount
+                            tokenAmount: tokenAmount,
+                            isProcess: true
                         },
                         { upsert: true, new: true })
 
