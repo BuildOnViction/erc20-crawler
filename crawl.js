@@ -12,8 +12,8 @@ async function crawlProcess() {
             continue
         }
         if (i % 10 === 0) {
-            console.log('Sleep 10 seconds')
-            await sleep(10000)
+            console.log('Sleep 120 seconds')
+            await sleep(120000)
         }
 
         let block = await web3.eth.getBlock(i);
@@ -27,14 +27,15 @@ async function crawlProcess() {
             transactionCount: block.transactions.length,
             parentHash: block.parentHash,
             timestamp: block.timestamp,
-            isProcess: true
         }, { upsert: true, new: true })
 
         console.log("Process block number: " + i);
         let listTransactions = await block.transactions
         if (listTransactions != null && block != null) {
             await q.create('newTransaction', {transactions: listTransactions.toString(), blockNumber: block.number})
-                .priority('normal').removeOnComplete(true).save()
+                .attempts(5).backoff({delay: 10000})
+                .priority('low').removeOnComplete(true).save()
+            await db.Block.findOneAndUpdate({blockNumber: i}, {isProcess: true}, { upsert: true, new: true })
         }
     }
 }
