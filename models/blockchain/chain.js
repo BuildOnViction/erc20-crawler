@@ -14,6 +14,14 @@ const config = require('config')
  */
 
 const provider = new Web3.providers.WebsocketProvider(config.get('provider.ws'))
+provider.connection.onerror(function (e) {
+    console.log('Provider error: ', e)
+    process.exit(1)
+})
+provider.connection.onclose(function (e) {
+    console.log('End provider: ', e)
+    proccess.exit(1)
+})
 const chain = new Web3(provider)
 
 module.exports = chain

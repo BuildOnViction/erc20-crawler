@@ -398,7 +398,7 @@ const ABI = [
    Tomochain testnet address:   0x76562af804a46ad4c441aca5693583b69b1c387d
 */
 
-const ADDRESS = config.get('tomo_address')
+const ADDRESS = config.get('tomoAddress')
 
 const TomoCoin = new chain.eth.Contract(ABI, ADDRESS)
 

@@ -22,6 +22,9 @@ const Transaction = new Schema({
     },
     tokenAmount: {
         type: Number
+    },
+    isProcess: {
+        type: Boolean
     }
 }, { timestamps: false })
 
