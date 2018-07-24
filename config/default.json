@@ -3,10 +3,10 @@
     "host": "localhost",
     "port": 6379,
     "password": null,
-    "prefix": "TomoTokenHolder"
+    "prefix": "TokenHolder"
   },
   "db": {
-    "uri": "mongodb://localhost:27017/tomo-holder"
+    "uri": "mongodb://localhost:27017/tomo"
   },
   "provider": {
     "ws": "wss://mainnet.infura.io/ws",
