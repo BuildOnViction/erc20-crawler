@@ -45,8 +45,7 @@ consumer.task = async function(job, done) {
                             block: transaction.blockNumber,
                             fromAccount: fromWallet,
                             toAccount: toWallet,
-                            tokenAmount: tokenAmount,
-                            isProcess: true
+                            tokenAmount: tokenAmount
                         },
                         { upsert: true, new: true })
 
@@ -55,10 +54,17 @@ consumer.task = async function(job, done) {
 
                     const q = require('./index')
                     await q.create('addAmountToWallet', {toWallet: toWallet, tokenAmount: tokenAmount})
-                        .priority('high').removeOnComplete(true).save()
+                        .attempts(5).backoff({delay: 10000})
+                        .priority('critical').removeOnComplete(true).save()
 
                     await q.create('subAmountFromWallet', {fromWallet: fromWallet, tokenAmount: tokenAmount})
-                        .priority('high').removeOnComplete(true).save()
+                        .attempts(5).backoff({delay: 10000})
+                        .priority('critical').removeOnComplete(true).save()
+
+                    await db.Transaction.findOneAndUpdate(
+                        {hash: transaction.transactionHash, fromAccount: fromWallet, toAccount: toWallet},
+                        {isProcess: true}, { upsert: true, new: true }
+                    )
 
                 }
             }
