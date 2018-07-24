@@ -33,7 +33,7 @@ consumer.task = async function(job, done) {
                     console.log('  - Found Transfer', tokenAmount, ' TOMO from: ', fromWallet, ' to: ', toWallet)
 
                     let tran = await db.Transaction.findOne({hash: transaction.transactionHash, fromAccount: fromWallet})
-                    if (tran && tran.isProcess) {
+                    if (tran && tran.isAddToken && tran.isSubToken) {
                         continue
                     }
 
@@ -61,11 +61,6 @@ consumer.task = async function(job, done) {
                         .attempts(5).backoff({delay: 10000})
                         .priority('critical').removeOnComplete(true).save()
 
-                    await db.Transaction.findOneAndUpdate(
-                        {hash: transaction.transactionHash, fromAccount: fromWallet, toAccount: toWallet},
-                        {isProcess: true}, { upsert: true, new: true }
-                    )
-
                 }
             }
 
@@ -73,8 +68,7 @@ consumer.task = async function(job, done) {
     }
     console.log('Finish process block: ', blockNumber)
 
-
-
+    await db.Block.findOneAndUpdate({blockNumber: blockNumber}, {isFinish: true}, { upsert: true, new: true })
     done()
 };
 
