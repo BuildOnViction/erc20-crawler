@@ -23,7 +23,10 @@ const Transaction = new Schema({
     tokenAmount: {
         type: Number
     },
-    isProcess: {
+    isAddToken: {
+        type: Boolean
+    },
+    isSubToken: {
         type: Boolean
     }
 }, { timestamps: false })
