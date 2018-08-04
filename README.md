@@ -1,4 +1,5 @@
 # ERC20 Crawler
+🏗️ Work in progress 🚧
 
 ## Requirements
 - MongoDB
