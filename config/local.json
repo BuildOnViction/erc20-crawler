@@ -1,0 +1,19 @@
+{
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "password": null,
+    "prefix": "TokenHolder"
+  },
+  "db": {
+    "uri": "mongodb://localhost:27017/tomo"
+  },
+  "provider": {
+    "ws": "wss://mainnet.infura.io/ws",
+    "http": "https://mainnet.infura.io"
+  },
+  "tomoAddress": "0x8b353021189375591723e7384262f45709a3c3dc",
+  "fromBlock": 5168958,
+  "toBlock": 5995800,
+  "processNumber": 6
+}

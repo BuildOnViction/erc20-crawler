@@ -15,7 +15,7 @@ consumer.task = async function(job, done) {
         let hash = listTransactions[j]
 
         let transaction = await web3.eth.getTransactionReceipt(hash)
-        if (transaction.status === false) {
+        if (!(transaction || {}).status) {
             continue
         }
         console.log(' - Process transaction: ', hash)

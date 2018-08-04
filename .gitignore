@@ -1,2 +1,4 @@
 .idea
 node_modules
+*.sw*
+config/local.json

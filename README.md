@@ -1,6 +1,6 @@
-# erc20 Tomocoin genesis swap
+# ERC20 Crawler
 
-## Requirement
+## Requirements
 - MongoDB
 - NodeJS
 - Redis
